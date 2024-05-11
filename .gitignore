@@ -2,3 +2,7 @@
 Lib/
 Scripts/
 pyvenv.cfg
+# añadido para no guardar los cambios de SQLite. 
+*.sqlite3
+# .pyc son ficheros compilados de python
+listas/listas/__pycache__/ 
