@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from listas.views import vista_home
+from views import vista_home
 
 urlpatterns = [
     # url/ -> vista en views.py
     path('admin/', admin.site.urls),
-    path('home/', vista_home)
+    path('home/', vista_home),
+    path('', vista_home)
 ]
