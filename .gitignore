@@ -6,4 +6,5 @@ pyvenv.cfg
 *.sqlite3
 # .pyc son ficheros compilados de python
 web/web/__pycache__/ 
-web/__pycache__/ 
+web/__pycache__/
+web/listas/__pycache__/
