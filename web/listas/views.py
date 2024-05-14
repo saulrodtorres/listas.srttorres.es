@@ -14,10 +14,11 @@ def vista_tarea(request):
     #tarea.save()
     pagina = """<html><body>
     <h1>Tarea de usuario:</h1>
-    <h2><n>Descripción:</n> %s</h2> 
+    <h3><n>Descripción:</n> %s</h3> 
     <h3><n>Estado:</n> %s</h3>
+    <h3><n>Tarea completa:</n> %s</h3>
     </body></html>
-    """ % (tarea.descripcion, tarea.estado)
+    """ % (tarea.descripcion, tarea.estado, tarea.__str__())
     http_response = HttpResponse(pagina)
     return http_response
 

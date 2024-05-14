@@ -16,4 +16,6 @@ class Tarea(models.Model):
 #    fecha_limite = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.nombre + ' (' + self.estado + ')'
+        tostring = self.descripcion + ' (' + self.estado + ')'
+        tostring = f"Descripción: {self.descripcion} ({self.estado}). Author: {self.author_id}"
+        return tostring
