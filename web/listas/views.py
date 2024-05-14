@@ -11,8 +11,13 @@ def vista_tarea(request):
     tarea.descripcion = 'Tarea de prueba'
     tarea.estado = 'TODO'
     tarea.author_id = 1001
-    tarea.save()
-    pagina = "<html><body><h1>La tarea:</h1> <h2>%s</h2></body></html>" % tarea
+    #tarea.save()
+    pagina = """<html><body>
+    <h1>Tarea de usuario:</h1>
+    <h2><n>Descripción:</n> %s</h2> 
+    <h3><n>Estado:</n> %s</h3>
+    </body></html>
+    """ % (tarea.descripcion, tarea.estado)
     http_response = HttpResponse(pagina)
     return http_response
 
