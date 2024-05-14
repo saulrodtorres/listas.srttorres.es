@@ -9,3 +9,5 @@ web/web/__pycache__/*
 web/__pycache__/
 web/listas/__pycache__/
 web/listas/migrations/__pycache__/
+web/web/__pycache__/settings.cpython-312.pyc
+*.pyc
