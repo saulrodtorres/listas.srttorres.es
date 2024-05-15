@@ -8,10 +8,10 @@ def vista_home(request):
 
 def vista_tarea(request):
     tarea = Tarea()
-    tarea.descripcion = 'Tarea de prueba'
+    tarea.descripcion = 'Comprar fresas &#x1F353;'
     tarea.estado = 'TODO'
-    tarea.author_id = 1001
-    #tarea.save()
+    tarea.author_id = 1003    
+    tarea.save()
     pagina = """<html><body>
     <h1>Tarea de usuario:</h1>
     <h3><n>Descripción:</n> %s</h3> 
