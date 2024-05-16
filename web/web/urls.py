@@ -19,5 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("listas/", include("listas.urls")),
+    path("", include("listas.urls")), #convierto listas en la raíz
 ]

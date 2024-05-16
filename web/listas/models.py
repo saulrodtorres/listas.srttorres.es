@@ -2,7 +2,9 @@ from django.db import models
 
 # Create your models here.
 
-numerito = 100
+from django.utils.text import slugify
+
+
 
 class Tarea(models.Model):
 
@@ -18,7 +20,7 @@ class Tarea(models.Model):
         INICIADA = 'INIT', 'Iniciada'  
     estado = models.CharField(max_length=4, choices=estado_tarea.choices, default=estado_tarea.PENDIENTE)    
     author_id = models.IntegerField(null=True, blank=True)
-
+    lista_id = models.ForeignKey('Lista', on_delete=models.CASCADE, null=True, blank=True)
 #    fase 2
 #    fecha_creacion = models.DateTimeField(auto_now_add=True)
 #    fecha_limite = models.DateTimeField(null=True, blank=True)
@@ -27,3 +29,16 @@ class Tarea(models.Model):
         tostring = self.descripcion + ' (' + self.estado + ')'
         tostring = f"Descripción: {self.descripcion} ({self.estado}). Author: {self.author_id}"
         return tostring
+    
+
+    class Lista(models.Model):
+        nombre = models.CharField(max_length=50)
+        slug = models.SlugField(max_length=50)
+        @classmethod
+        def crear_lista(cls,nombre):
+            lista = cls(nombre=nombre, slug=slugify(nombre))
+            lista.save()
+            return lista
+        
+        def __str__(self):
+            return self.nombre
