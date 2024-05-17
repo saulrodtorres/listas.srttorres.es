@@ -1,10 +1,12 @@
 from django.urls import path
 
-from .views import vista_home, vista_tarea, vista_lista
+from .views import *
 
 urlpatterns = [
     path("", vista_home, name="home"), # http://127.0.0.1:8000/ mostrará la colección de listas de tareas
     path("home/", vista_home, name="home"),
-    path("tarea/<int:tarea_id>/", vista_tarea, name="tarea"),
-    path("lista-tareas/<slug:slug>", vista_lista, name="listas"), #aquí va el ID de la lista
+    path("tarea/<int:tarea_id>/", vista_tarea, name="tarea"),#habría que hacerla modificable
+    path("lista-tareas/lista1", vista_lista, name="lista"), #aquí va el ID de la lista
+    path("lista-tareas/", vista_lista, name="crear_lista"), #aquí se crea una lista con los valores por defecto
+    
 ]

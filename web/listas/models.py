@@ -31,14 +31,15 @@ class Tarea(models.Model):
         return tostring
     
 
-    class Lista(models.Model):
-        nombre = models.CharField(max_length=50)
-        slug = models.SlugField(max_length=50)
-        @classmethod
-        def crear_lista(cls,nombre):
-            lista = cls(nombre=nombre, slug=slugify(nombre))
-            lista.save()
-            return lista
-        
-        def __str__(self):
-            return self.nombre
+class Lista(models.Model):
+    nombre = models.CharField(max_length=50)
+    author_id= models.CharField(max_length=50)
+    
+    @classmethod
+    def crear_lista(cls,nombre, author_id):#probar
+        lista = cls(nombre=nombre, author_id=author_id)
+        lista.save()
+        return lista
+    
+    def __str__(self):
+        return self.nombre
