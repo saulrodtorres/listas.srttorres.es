@@ -46,3 +46,4 @@ def vista_lista(request):
         </body></html>
         """ % (lista.author_id, lista.nombre)
     http_response = HttpResponse(pagina)
+    return http_response
