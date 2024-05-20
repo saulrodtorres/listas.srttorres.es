@@ -7,9 +7,9 @@ from django.utils.text import slugify
 
 
 class Tarea(models.Model):
-
+#   Este es mi intento de INIT personalizado
 #    def __init__(self):
-#        self.id = 1000
+#        self.id = contador++
 #        self.descripcion = ''
 #        self.estado = ''
 #        self.author_id = 0
@@ -19,7 +19,7 @@ class Tarea(models.Model):
         COMPLETADA = 'DONE', 'Completada'
         INICIADA = 'INIT', 'Iniciada'  
     estado = models.CharField(max_length=4, choices=estado_tarea.choices, default=estado_tarea.PENDIENTE)    
-    author_id = models.IntegerField(null=True, blank=True)
+    author_id = models.CharField(max_length=50)
     lista_id = models.ForeignKey('Lista', on_delete=models.CASCADE, null=True, blank=True)
 #    fase 2
 #    fecha_creacion = models.DateTimeField(auto_now_add=True)
