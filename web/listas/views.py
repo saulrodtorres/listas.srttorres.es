@@ -12,17 +12,17 @@ def vista_home(request):
 
     return HttpResponse('En la vista home debería aparecer la colección de listas de tareas')
 
-def vista_tarea(request, nombre_autor, nombre_lista, nombre_tarea):
-    # Vista para "<str:nombre_autor>/lista-tareas/<str:nombre_lista>/tarea/<str:nombre_tarea>/"
-    # TODO: tratamiento nombre_autor
-    # TODO: tratamiento nombre_lista
-    # TODO: tratamiento nombre_tarea
+def vista_tarea(request, slug_nombre_autor, slug_nombre_lista, slug_nombre_tarea):
+    # Vista para "<str:slug_nombre_autor>/lista-tareas/<str:slug_nombre_lista>/tarea/<str:slug_nombre_tarea>"
+    # TODO: tratamiento slug_nombre_autor
+    # TODO: tratamiento slug_nombre_lista
+    # TODO: tratamiento slug_nombre_tarea
     # TODO: esto no tiene por qué ser único, pero sí debería ser único el author también
 
     try:
-        tarea_actual = Tarea.objects.get(descripcion=nombre_tarea, author_id=nombre_autor, lista_id = nombre_lista) 
+        tarea_actual = Tarea.objects.get(slug_descripcion=slug_nombre_tarea, slug_author_id=slug_nombre_autor, slug_lista_id=slug_nombre_lista) 
     except Tarea.DoesNotExist:
-        raise Http404(f"Lo siento, pero la lista con el nombre {nombre_lista} para el autor no existe para el autor {nombre_autor}. Revisa si el ID es correcto")
+        raise Http404(f"Lo siento, pero la lista con el slug {slug_nombre_lista} para el autor no existe para el autor {slug_nombre_autor}. Revisa si el ID es correcto")
     
     pagina = """<html><body>
     <h1>Tarea de usuario:</h1>

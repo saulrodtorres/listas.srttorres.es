@@ -7,20 +7,27 @@ from django.utils.text import slugify
 
 
 class Tarea(models.Model):
-#   Este es mi intento de INIT personalizado
+#   Este es mi intento de INIT personalizado que no funciona porque luego hay otro pk que se genera automáticamente
 #    def __init__(self):
 #        self.id = contador++
 #        self.descripcion = ''
 #        self.estado = ''
 #        self.author_id = 0
-    descripcion = models.CharField(max_length=50)  
+#        self.slug_descripcion = slugify(self.descripcion)
+#        self.slug_author_id = slugify(self.author_id)
+#        self.slug_lista_id = slugify(self.lista_id)
+
+    descripcion = models.CharField(max_length=50)      
+    author_id = models.CharField(max_length=50)
+    lista_id = models.ForeignKey('Lista', on_delete=models.CASCADE, null=True, blank=True)
+    slug_descripcion = models.SlugField(max_length=50, unique=True, blank=True)
+    slug_author_id = models.SlugField(max_length=50, unique=True, blank=True)
+    slug_lista_id = models.SlugField(max_length=50, unique=True, blank=True)
     class estado_tarea(models.TextChoices):
         PENDIENTE = 'TODO', 'Pendiente'
         COMPLETADA = 'DONE', 'Completada'
         INICIADA = 'INIT', 'Iniciada'  
     estado = models.CharField(max_length=4, choices=estado_tarea.choices, default=estado_tarea.PENDIENTE)    
-    author_id = models.CharField(max_length=50)
-    lista_id = models.ForeignKey('Lista', on_delete=models.CASCADE, null=True, blank=True)
 #    fase 2
 #    fecha_creacion = models.DateTimeField(auto_now_add=True)
 #    fecha_limite = models.DateTimeField(null=True, blank=True)
@@ -34,10 +41,12 @@ class Tarea(models.Model):
 class Lista(models.Model):
     nombre = models.CharField(max_length=50)
     author_id= models.CharField(max_length=50)
-    
+    slug_nombre = models.SlugField(max_length=50, unique=True, blank=True)
+    slug_author_id = models.SlugField(max_length=50, unique=True, blank=True)
+
     @classmethod
     def crear_lista(cls,nombre, author_id):#probar
-        lista = cls(nombre=nombre, author_id=author_id)
+        lista = cls(nombre=nombre, author_id=author_id, slug_nombre=slugify(nombre), slug_author_id=slugify(author_id))
         lista.save()
         return lista
     

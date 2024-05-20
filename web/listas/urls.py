@@ -5,11 +5,11 @@ from .views import *
 urlpatterns = [
     path("", vista_home, name="home"),                                      # http://127.0.0.1:8000/ mostrará la colección de listas de tareas
     path("home/", vista_home, name="home"),
-    path("<str:nombre_autor>/lista-tareas/<str:nombre_lista>/tarea/<str:nombre_tarea>/", vista_tarea, name="tarea"),               
+    path("<slug:slug_nombre_autor>/lista-tareas/<slug:slug_nombre_lista>/tarea/<slug:slug_nombre_tarea>", vista_tarea, name="tarea"),               
                                                                             # habría que hacerla modificable. creo que debería agruparse por autor
     
     path("lista-tareas/nueva", vista_nueva_lista, name="nueva_lista"),      # http://127.0.0.1:8000/lista-tareas/nueva aquí se crea una lista con los valores por defecto
-    path("<str:nombre_autor>/lista-tareas/<str:nombre_lista>", vista_lista, name="lista"),     # aquí va el ID de la lista
+    path("<slug:slug_nombre_autor>/lista-tareas/<slug:slug_nombre_lista>", vista_lista, name="lista"),     # aquí va el ID de la lista
     
     
 ]
