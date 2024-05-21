@@ -20,14 +20,19 @@ class Tarea(models.Model):
     descripcion = models.CharField(max_length=50)      
     author_id = models.CharField(max_length=50)
     lista_id = models.ForeignKey('Lista', on_delete=models.CASCADE, null=True, blank=True)
-    slug_descripcion = models.SlugField(max_length=50, unique=True, blank=True)
-    slug_author_id = models.SlugField(max_length=50, unique=True, blank=True)
-    slug_lista_id = models.SlugField(max_length=50, unique=True, blank=True)
+    slug_descripcion = models.SlugField(max_length=50, blank=True)
+    slug_author_id = models.SlugField(max_length=50,blank=True)
+    slug_lista_id = models.SlugField(max_length=50, blank=True)
     class estado_tarea(models.TextChoices):
         PENDIENTE = 'TODO', 'Pendiente'
         COMPLETADA = 'DONE', 'Completada'
         INICIADA = 'INIT', 'Iniciada'  
-    estado = models.CharField(max_length=4, choices=estado_tarea.choices, default=estado_tarea.PENDIENTE)    
+    estado = models.CharField(max_length=4, choices=estado_tarea.choices, default=estado_tarea.PENDIENTE) 
+    @classmethod
+    def crear_tarea(cls,descripcion, author_id, lista_id):#probar
+        tarea = cls(descripcion=descripcion, author_id=author_id, lista_id = lista_id, slug_descripcion=slugify(descripcion), slug_author_id=slugify(author_id), slug_lista_id=slugify(lista_id))
+        tarea.save()
+        return tarea  
 #    fase 2
 #    fecha_creacion = models.DateTimeField(auto_now_add=True)
 #    fecha_limite = models.DateTimeField(null=True, blank=True)
@@ -41,8 +46,8 @@ class Tarea(models.Model):
 class Lista(models.Model):
     nombre = models.CharField(max_length=50)
     author_id= models.CharField(max_length=50)
-    slug_nombre = models.SlugField(max_length=50, unique=True, blank=True)
-    slug_author_id = models.SlugField(max_length=50, unique=True, blank=True)
+    slug_nombre = models.SlugField(max_length=50, blank=True)
+    slug_author_id = models.SlugField(max_length=50, blank=True)
 
     @classmethod
     def crear_lista(cls,nombre, author_id):#probar

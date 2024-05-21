@@ -4,17 +4,17 @@
     <title>My HTML File</title>
 </head>
 <body>
-    <h1>Hello, world!</h1>
-    <p>This is a plain HTML file.</p>
+    <h1>Lista de Tareas</h1>
+    <p>para el autor {{nombre_lista_actual}}</p>
 
-    {% if latest_question_list %}
+    {% if coleccion_tareas %}
     <ul>
-    {% for question in latest_question_list %}
-        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+    {% for t in coleccion_tareas %}
+        <li><a href="{{slug_nombre_autor}}/lista-tareas/{{slug_nombre_lista}}/tarea/{{t.descripcion}}/">{{ t.descripcion }}</a></li>
     {% endfor %}
     </ul>
     {% else %}
-    <p>No polls are available.</p>
+    <p>No hay tareas para este autor y esta lista de tareas</p>
     {% endif %}
 </body>
 </html>

@@ -59,17 +59,22 @@ def vista_nueva_lista(request):
     http_response = HttpResponse(pagina)
     return http_response
 
-def vista_lista(request, nombre_autor, nombre_lista): 
+def vista_lista(request, slug_nombre_autor, slug_nombre_lista): 
     # Vista para "<str:nombre_autor>/lista-tareas/<str:nombre_lista>"
     # TODO: debería ser un slug pero de momento en urls es un str
     # esto debería recibir un ID de lista
     
     #lista_actual = Lista.objects.get(descripcion=nombre_lista, author_id=nombre_autor)# TODO: esto no tiene por qué ser único, pero sí debería ser único el author también        
-    lista_actual = Lista.crear_lista(nombre=nombre_lista, author_id=nombre_autor)
+    lista_actual = Lista.crear_lista(nombre=slug_nombre_lista, author_id=slug_nombre_autor)
+    #ESTA ESTA MAL. AQUÍ NO HAY QUE CREAR LISTA
+
     coleccion_tareas = Tarea.objects.filter(id=lista_actual.id)
     template = loader.get_template("listas/index.html")
     context = {
+        "slug_nombre_lista": slug_nombre_lista, # "slug_nombre_lista": "nombre_lista
+        "slug_nombre_autor": slug_nombre_autor,
         "coleccion de tareas": coleccion_tareas,
+        "nombre_lista_actual" : lista_actual.nombre
     }
     
     ########### old way
