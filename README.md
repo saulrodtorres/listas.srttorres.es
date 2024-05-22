@@ -17,4 +17,5 @@ python manage.py runserver
 # Programa de prueba en el shell
 from listas.models import *
 lista_saul = Lista.crear_lista("lista saul", "saul")
+tarea_1 = Tarea.crear_tarea(descripcion="Recoger la mesa de mi habitación", author_id="saul", lista_id = lista_saul)
 
