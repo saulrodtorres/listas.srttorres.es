@@ -10,7 +10,7 @@
     {% if coleccion_tareas %}
     <ul>
     {% for t in coleccion_tareas %}
-        <li><a href="{{lista_actual_pk}}/tarea/{{t.pk}}/">{{ t.descripcion }}</a></li>
+        <li><a href="{{lista_actual_pk}}/tarea/{{t.pk}}">{{ t.descripcion }}</a></li>
     {% endfor %}
     </ul>
     {% else %}

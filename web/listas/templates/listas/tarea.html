@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listas Lokas</title>
+</head>
+<body>
+    <p>Tarea <b>{{tarea.}}</b></p>
+    <p>Autor <b> {{slug_nombre_autor}} </b></p>
+
+    {% if tarea %}
+    <ul>
+        <li>Descripción: {{ tarea.descripcion }}</li>
+        <li>Fecha de Creación: {{ tarea.fecha_creacion }}</li>
+        <li>Fecha de Modificación: {{ tarea.fecha_modificacion }}</li>
+        <li>Estado: {{ tarea.estado }}</li>
+    {% else %}
+    <p>No hay tarea para este autor En la lista con pk: {{lista_actual_pk}}</p>
+    {% endif %}
+</body>
+</html>
