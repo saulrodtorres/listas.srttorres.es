@@ -33,6 +33,10 @@ class Tarea(models.Model):
         tarea = cls(descripcion=descripcion, author_id=author_id, lista_id = lista_id, slug_descripcion=slugify(descripcion), slug_author_id=slugify(author_id), slug_lista_id=slugify(lista_id))
         tarea.save()
         return tarea  
+    @classmethod
+    def get_tarea_por_pk(cls, pk):
+        tarea = Tarea.objects.get(pk=pk)
+        return tarea
 #    fase 2
 #    fecha_creacion = models.DateTimeField(auto_now_add=True)
 #    fecha_limite = models.DateTimeField(null=True, blank=True)
@@ -54,6 +58,22 @@ class Lista(models.Model):
         lista = cls(nombre=nombre, author_id=author_id, slug_nombre=slugify(nombre), slug_author_id=slugify(author_id))
         lista.save()
         return lista
+    @classmethod
+    def get_lista(cls,nombre, author_id):
+        lista = Lista.objects.get(nombre=nombre, author_id=author_id)        
+        return lista
+    @classmethod
+    def get_lista_por_pk(cls, pk):
+        lista = Lista.objects.get(pk=pk)
+        return lista
+    @classmethod
+    def get_lista_por_slug(cls, slug_nombre, slug_author_id):
+        lista = Lista.objects.get(slug_nombre=slug_nombre, slug_author_id=slug_author_id)        
+        return lista
+    @classmethod
+    def get_pk(cls):
+        pk = Lista.objects.get(pk)
+        return pk
     
     def __str__(self):
         return self.nombre
