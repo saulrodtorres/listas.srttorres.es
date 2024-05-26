@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listas Lokas</title>
+</head>
+<body>
+    <p>Lista de Tareas <b>{{nombre_lista_actual}}</b></p>
+
+    <p>Autor <b> {{slug_nombre_autor}} </b></p>
+
+    <form action="{% url 'listas:crear_lista' lista.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>{{ question.question_text }}</h1></legend>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            {% for choice in question.choice_set.all %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Vote">
+    </form>
+    
+    {% if coleccion_tareas %}
+    <ul>
+    {% for t in coleccion_tareas %}
+        <li><a href="{{lista_actual_pk}}/tarea/{{t.pk}}">{{ t.descripcion }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No hay tareas para este autor y esta lista de tareas con pk: {{lista_actual_pk}}</p>
+    {% endif %}
+</body>
+</html>

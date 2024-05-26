@@ -28,22 +28,10 @@ def vista_nueva_lista(request):
     # Vista para "lista-tareas/nueva"
     # TODO: El valor del nombre y el author id deben guardarse en el modelo
     # TODO: Debería crearse una plantilla a partir de este formulario
-
-    
-    pagina = """<html><body>
-        <form method="POST">
-        <label>Nombre de la Lista:</label>
-        <input type="text" name="descripcion" value="">
-        <label>ID de Autor</label>
-        <input type="text" name="author_id" value="">
-        <input type="submit" value="Guardar">
-
-        </form>
-
-        </body></html>
-        """
-    http_response = HttpResponse(pagina)
-    return http_response
+    lista = Lista.crear_lista(nombre='Nueva lista', author_id='saul')
+    context = {
+    }
+    return render(request, "listas/nueva_lista.html", context=context)
 
 def vista_lista(request, slug_nombre_autor, lista_pk): 
     # Vista para "<str:nombre_autor>/lista-tareas/<int:lista_pk>"
