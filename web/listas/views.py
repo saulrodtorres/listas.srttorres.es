@@ -32,9 +32,10 @@ def vista_tarea(request, lista_pk, tarea_pk):
 def nueva_lista(request):
     # Vista para guardar la nueva lista
     lista = Lista()
+    lista.save()
     lista_id = lista.pk
     lista.nombre = "La lista del Caesar"
-    nueva_lista = get_object_or_404(Lista, pk=1)
+    nueva_lista = get_object_or_404(Lista, pk=lista_id) #esta llamada no es válida, hasta que no haga un save...
     print(nueva_lista)
     try:
         nueva_lista = Lista.objects.get(pk=lista_id)
@@ -44,13 +45,17 @@ def nueva_lista(request):
             'error_message': "No se ha podido cargar la lista",
         })
     else:
-        nueva_lista.nombre = request.POST['nombre_lista'] #recojo el name del input
-        nueva_lista.author_id = request.POST['autor_lista'] #esto no tiene mucho sentido, solo cuando no cambia el slug y el autor
+        #nueva_lista.nombre = request.POST['nombre_lista'] #recojo el name del input
+        #recojo el name del input
+        
+        nueva_lista.nombre = request.POST.get('nombre_lista', False) #Si no existe, devuelve False y sigue ejecutando
+        #nueva_lista.author_id = request.POST['autor_lista'] #esto no tiene mucho sentido, solo cuando no cambia el slug y el autor
+        nueva_lista.author_id = request.POST.get('autor_lista', False) #Si no existe, devuelve False y sigue ejecutando
         nueva_lista.slug_nombre = slugify(nueva_lista.nombre)
         nueva_lista.slug_author_id = slugify(nueva_lista.author_id)
         nueva_lista.save()
-        return HttpResponseRedirect(reverse('listas:lista', args=(nueva_lista.pk)))
-
+        return HttpResponseRedirect(reverse('listas:lista', args=(nueva_lista.pk,)))
+        #return HttpResponseRedirect(reverse('listas:nueva_lista'))#creo que esto entra en bucle
 
 def vista_lista(request, lista_pk): 
     # Vista para "<str:nombre_autor>/lista-tareas/<int:lista_pk>"
