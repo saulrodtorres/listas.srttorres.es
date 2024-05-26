@@ -4,20 +4,18 @@
     <title>Listas Lokas</title>
 </head>
 <body>
-    <p>Lista de Tareas <b>{{nombre_lista_actual}}</b></p>
+    
 
-    <p>Autor <b> {{slug_nombre_autor}} </b></p>
-
-    <form action="{% url 'listas:update_nueva_lista' slug_nombre_autor=lista.author_id lista_pk=lista.id %}" method="post">
+    <form action="{% url 'listas:lista' lista.id %}" method="post">
         {% csrf_token %}
         <fieldset>
-            <legend><h1>{{ lista.nombre }}</h1></legend>                       
+            <legend><h1>Editar Lista</h1></legend>                       
             <input type="text" name="nombre_lista" id="nombre_nueva_lista" value="{{ lista.nombre }}">
             <label for="nombre_lista">Nombre</label><br>
-            <input type="text" name="autor_lista" id="nombre_autor_nueva_lista" value="{{ lista.author_id }}">
+            <input type="text" name="autor_lista" id="nombre_autor_nueva_lista" value="pepe">
             <label for="autor_lista">Autor</label><br>
         </fieldset>
-        <input type="submit" value="Vote">
+        <input type="submit" value="Guardar">
     </form>
 </body>
 </html>

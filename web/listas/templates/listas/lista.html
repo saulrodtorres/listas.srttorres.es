@@ -5,7 +5,6 @@
 </head>
 <body>
     <p>Lista de Tareas <b>{{nombre_lista_actual}}</b></p>
-    <p>Autor <b> {{slug_nombre_autor}} </b></p>
 
     {% if coleccion_tareas %}
     <ul>
@@ -14,7 +13,7 @@
     {% endfor %}
     </ul>
     {% else %}
-    <p>No hay tareas para este autor y esta lista de tareas con pk: {{lista_actual_pk}}</p>
+    <p>No hay tareas para esta lista con pk: {{lista_actual_pk}}</p>
     {% endif %}
 </body>
 </html>
