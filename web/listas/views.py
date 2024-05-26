@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import Http404, HttpResponse
-from django.template import loader # Para cargar plantillas
 
+from django.template import loader # Para cargar plantillas de la forma 2, ahora se usa render
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 
 from .models import *
 
@@ -26,17 +30,36 @@ def vista_tarea(request, slug_nombre_autor, lista_pk, tarea_pk):
 
 def vista_nueva_lista(request):
     # Vista para "lista-tareas/nueva"
-    # TODO: El valor del nombre y el author id deben guardarse en el modelo
-    # TODO: Debería crearse una plantilla a partir de este formulario
-    lista = Lista.crear_lista(nombre='Nueva lista', author_id='saul')
+    # Aquí se crea una lista con los valores vacíos para que en el formulario se asignen.
+    lista = Lista()
+    lista.nombre = 'Play Adrifu'
     context = {
+        "lista_id" : lista.pk
     }
     return render(request, "listas/nueva_lista.html", context=context)
 
+def update_nueva_lista(request, slug_nombre_autor, lista_id):
+    # Vista para guardar la nueva lista
+    nueva_lista = get_object_or_404(Lista, pk=lista_id)
+    try:
+        nueva_lista = Lista.objects.get(pk=lista_id)
+    except (KeyError, Lista.DoesNotExist):
+        return render(request, 'listas/nueva_lista.html', {
+            'lista': nueva_lista,
+            'error_message': "No se ha podido cargar la lista",
+        })
+    else:
+        nueva_lista.nombre = request.POST['nombre']
+        nueva_lista.author_id = slug_nombre_autor #esto no tiene mucho sentido, solo cuando no cambia el slug y el autor
+        nueva_lista.slug_nombre = slugify(nueva_lista.nombre)
+        nueva_lista.slug_author_id = slugify(nueva_lista.author_id)
+        nueva_lista.save()
+        return HttpResponseRedirect(reverse('listas:lista', args=(nueva_lista.slug_author_id, nueva_lista.pk)))
+
+
 def vista_lista(request, slug_nombre_autor, lista_pk): 
     # Vista para "<str:nombre_autor>/lista-tareas/<int:lista_pk>"
-    # Es un formulario para editar el nombre de una lista y añadir tareas a la lista
-    
+    # Es un formulario para editar el nombre de una lista y añadir tareas a la lista    
     try:
         lista_actual = Lista.get_lista_por_pk(pk=lista_pk)
     except Lista.DoesNotExist:
