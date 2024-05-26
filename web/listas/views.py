@@ -14,20 +14,15 @@ def vista_home(request):
 
 def vista_tarea(request, slug_nombre_autor, lista_pk, tarea_pk):
     # Vista para "<str:slug_nombre_autor>/lista-tareas/<int:slug_nombre_lista>/tarea/<str:slug_nombre_tarea>"
-    print(f"slug_nombre_autor: {slug_nombre_autor}, lista_pk: {lista_pk}, tarea_pk: {tarea_pk}")
-
+    # Es un formulario para editar una tarea.
     try:
         tarea_actual = Tarea.get_tarea_por_pk(pk=tarea_pk)
     except Tarea.DoesNotExist:
-        raise Http404(f"Lo siento, pero la lista con PK {tarea_pk} no existe. Revisa si el PK de la tarea es correcta")
-    
-    tarea = Tarea.objects.get(pk=tarea_pk)#esto está mal, debería ser por lista_id
-    template = loader.get_template("listas/tarea.html")
+        raise Http404(f"Lo siento, pero la lista con PK {tarea_pk} no existe. Revisa si el PK de la tarea es correcta")    
     context = {                
-        "tarea": tarea_actual,                          #Esto es un objeto Tarea
-    }
-    print(tarea_actual)
-    return HttpResponse(template.render(context, request))
+        "tarea": tarea_actual,                          #Esto es un objeto Tarea. Solo hace falta decir tarea_pk porque eso la hace única.
+    }    
+    return render(request, "listas/tarea.html", context=context)
 
 def vista_nueva_lista(request):
     # Vista para "lista-tareas/nueva"
@@ -52,23 +47,19 @@ def vista_nueva_lista(request):
 
 def vista_lista(request, slug_nombre_autor, lista_pk): 
     # Vista para "<str:nombre_autor>/lista-tareas/<int:lista_pk>"
-    # TODO: debería ser un slug pero de momento en urls es un str
-    # esto debería recibir un ID de lista
+    # Es un formulario para editar el nombre de una lista y añadir tareas a la lista
     
     try:
         lista_actual = Lista.get_lista_por_pk(pk=lista_pk)
     except Lista.DoesNotExist:
-        raise Http404(f"Lo siento, pero la lista con PK {lista_pk} no existe para el autor {slug_nombre_autor}. Revisa si el slug del autor es correcto")
-    
+        raise Http404(f"Lo siento, pero la lista con PK {lista_pk} no existe para el autor {slug_nombre_autor} pedido. Revisa si el slug del autor es correcto")    
     coleccion_tareas = Tarea.objects.filter(lista_id=lista_actual.pk)#esto está mal, debería ser por lista_id
-    template = loader.get_template("listas/lista.html")
     context = {        
         "nombre_lista_actual" : lista_actual.nombre,    #Se usa en el Título
         "slug_nombre_autor": slug_nombre_autor,         #Se usa en el Subtítulo
         "coleccion_tareas": coleccion_tareas,           #TODO: esto es un <QuerySet [<Tarea: Descripción: Recoger la mesa de mi habitación (TODO). Author: saul>, <Tarea: Descripción: Recoger la ropa tendida (TODO). Author: saul>]>                
         "lista_actual_pk"   : lista_actual.pk
-    }
-    
-    return HttpResponse(template.render(context, request))
+    }    
+    return render(request, "listas/lista.html", context=context)
 
 

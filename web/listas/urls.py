@@ -11,6 +11,9 @@ urlpatterns = [
                                                                                                         # habría que hacerla modificable. creo que debería agruparse por autor
     
     path("lista-tareas/nueva", vista_nueva_lista, name="nueva_lista"),                                  # http://127.0.0.1:8000/lista-tareas/nueva aquí se crea una lista con los valores por defecto
+
+    # borrar posicion = borrar tarea con ID = PK
+    # Completar tarea por posicion = Completar tarea con ID = PK
     
     
     
