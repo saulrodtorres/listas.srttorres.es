@@ -35,17 +35,11 @@
 </head>
 <body>
     <div class="clase_cabecera_azul">
-            <h1>Listas de Tareas</h1>
-            </div>
+        <h1>Listas de Tareas</h1>
+    </div>
     <p><a href="{% url 'listas:home' %}">Listas de Tareas</a> > <b>{{lista.nombre}}</b></p>
-    <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
-                display: flex; 
-                justify-content: center; 
-                align-items: center; 
-                margin-top: 20px;">
-        <div style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-                    padding: 20px;
-                    margin:2px;">
+    <div class="clase_cajita_sombreada">
+        <div class="clase_cajita_sombreada_interna">
             <form action="{% url 'listas:lista' lista.id %}" method="post">
                 {% csrf_token %}
                 <fieldset>
@@ -55,8 +49,7 @@
                     <label for="autor_lista">Autor</label>
                     <input type="text" name="autor_lista" id="nombre_autor_nueva_lista" value="{{lista.author_id}}">            
                 </fieldset>
-                <div style="margin-top: 10px; 
-                            text-align: center;">
+                <div class="clase_botones_editar_lista">
                     <input type="submit" value="Guardar datos de lista">
                     <button type="button" onclick="javascript:borrar_lista()">borrar lista</button>        
                 </div>
