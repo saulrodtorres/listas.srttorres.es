@@ -4,17 +4,14 @@
     <title>Listas Lokas</title>
 </head>
 <body>
-    <p>Lista de Tareas <b>{{nombre_lista_actual}}</b></p>
-    <p>Autor <b> {{slug_nombre_autor}} </b></p>
-
-    {% if coleccion_tareas %}
+{%  if coleccion_listas %}
     <ul>
-    {% for t in coleccion_tareas %}
-        <li><a href="{{lista_actual_pk}}/tarea/{{t.pk}}/">{{ t.descripcion }}</a></li>
-    {% endfor %}
+        {% for l in coleccion_listas %}
+        <li><a href="lista-tareas/{{l.pk}}">{{ l.nombre }}</a></li>
+        {% endfor %}
     </ul>
-    {% else %}
-    <p>No hay tareas para este autor y esta lista de tareas con pk: {{lista_actual_pk}}</p>
-    {% endif %}
+{% else %}
+    <p>No hay listas</p>
+{% endif %}
 </body>
-</html>
+</html></div>

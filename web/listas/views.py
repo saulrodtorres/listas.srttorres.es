@@ -12,9 +12,13 @@ from .models import *
 
 def vista_home(request):
     # Vista para la página principal
-    # TODO: leer sobre las colecciones de objetos en django
-
-    return HttpResponse('En la vista home debería aparecer la colección de listas de tareas')
+    # Mostrar todas las listas de tareas
+    
+    coleccion_listas = Lista.objects.all() #Esto es un <QuerySet [<Lista: Lista de tareas de saul>, <Lista: Lista de la compra>]...etc> 
+    context = { 
+        "coleccion_listas"       : coleccion_listas,
+    }
+    return render(request, "listas/index.html", context=context)
 
 def vista_tarea(request, lista_pk, tarea_pk):
     # Vista para "<str:slug_nombre_autor>/lista-tareas/<int:slug_nombre_lista>/tarea/<str:slug_nombre_tarea>"
@@ -44,13 +48,13 @@ def vista_lista(request, lista_pk):
     # Vista para "lista-tareas/<int:lista_pk>" y para recibir la lista nada más crearla
     # Tratamiento si ya está creada
     try:
-        lista_actual = Lista.get_lista_por_pk(pk=lista_pk)
+        lista_actual = Lista.objects.get(pk=lista_pk)
     except Lista.DoesNotExist:
         raise Http404(f"Lo siento, pero la lista con PK {lista_pk}")    
     try:
         #Aquí lo que querría es saber si existe un POST o si es un GET.
-        lista_actual.nombre = request.POST.get('nombre_lista', False) #Si no existe, devuelve False y sigue ejecutando        
-        lista_actual.author_id = request.POST.get('autor_lista', False) #Si no existe, devuelve False y sigue ejecutando
+        lista_actual.nombre = request.POST.get('nombre_lista', lista_actual.nombre) #Si no existe, devuelve False y sigue ejecutando        
+        lista_actual.author_id = request.POST.get('autor_lista', lista_actual.author_id) #Si no existe, devuelve False y sigue ejecutando
         lista_actual.save()
     except:
         pass
