@@ -4,6 +4,17 @@
     <title>Listas Lokas</title>
 </head>
 <body>
+    <script>
+        function borrar_lista() {
+            // Code to delete the list with {{lista.id}}
+            alert("Se va a borrar la lista con id: {{lista.id}}")
+            window.open("{% url 'listas:borrar_lista' lista.id %}");
+        }
+
+        function agregarTarea() {
+            // Code to add a new task
+    }
+    </script>
     <p>Lista de Tareas <b>{{lista.nombre}}</b></p>
     <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
                 display: flex; 
@@ -25,7 +36,7 @@
                 <div style="margin-top: 10px; 
                             text-align: center;">
                     <input type="submit" value="Guardar datos de lista">
-                    <button type="button" onclick="borrar_lista()">borrar lista</button>        
+                    <button type="button" onclick="javascript:borrar_lista()">borrar lista</button>        
                 </div>
             </form>
         </div>
