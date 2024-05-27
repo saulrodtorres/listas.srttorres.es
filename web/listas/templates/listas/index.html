@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Listas Lokas</title>
-</head>
+    <head>
+        <title>Listas Lokas</title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    </head>
 <body>
+    <script>
+        $(document).ready( function () {
+            $('#listas_de_tareas').DataTable();
+        } );
+    </script>
+
     <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
     display: flex; 
     justify-content: center; 
@@ -18,11 +27,22 @@
     align-items: center; 
     margin-top: 20px;">
 {%  if coleccion_listas %}
-    <ol>
+<table id="listas_de_tareas">
+    <thead>
+        <tr>            
+            <th>ID</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for l in coleccion_listas %}
-        <li><a href="lista-tareas/{{l.pk}}">{{ l.nombre }}</a></li>
+        <tr>            
+            <td><a href="{% url 'listas:lista' l.id %}">{{l.id}}</a></td>
+            <td><a href="{% url 'listas:lista' l.id %}">{{l.nombre}}</a></td>
+        </tr>
         {% endfor %}
-    </ol>
+    </tbody>
+</table>
 {% else %}
     <p>No hay listas</p>
 {% endif %}
