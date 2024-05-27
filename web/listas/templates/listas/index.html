@@ -21,13 +21,14 @@
     <h1>Listas de Tareas</h1>
 </div>
 
-<div class="clase_cajita_sombreada">
+<div class="clase_cajita_sombreada_padre padding_abajo padding_arriba">
 {%  if coleccion_listas %}
 <table id="listas_de_tareas">
     <thead>
         <tr>            
             <th>ID</th>
             <th>Nombre</th>
+            <th>Autor</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
         <tr>            
             <td><a href="{% url 'listas:lista' l.id %}">{{l.id}}</a></td>
             <td><a href="{% url 'listas:lista' l.id %}">{{l.nombre}}</a></td>
+            <td><a href="{% url 'listas:lista' l.id %}">{{l.author_id}}</a></td>
         </tr>
         {% endfor %}
     </tbody>

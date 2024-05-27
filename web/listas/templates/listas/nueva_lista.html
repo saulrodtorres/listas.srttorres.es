@@ -15,7 +15,7 @@
             <form action="{% url 'listas:lista' lista.id %}" method="post">
                 {% csrf_token %}
                 <fieldset>
-                    <legend><h1>Editar Lista</h1></legend>                       
+                    <legend><h2>Editar Lista</h2></legend>                       
                     <label for="nombre_lista">Nombre</label>
                     <input type="text" name="nombre_lista" id="nombre_nueva_lista" value="">
                     <label for="autor_lista">Autor</label>

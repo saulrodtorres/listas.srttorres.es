@@ -32,30 +32,32 @@ p  {
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    margin-top: 20px;
+    margin: 10px;
 }
-
-.clase_cajita_sombreada{/*amarilla*/
+.clase_cajita_sombreada_padre{/*amarilla*/
     /*<div class="clase_cajita_sombreada">*/
     background-color: rgb(250, 250, 244);
     box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
-    display: flex; 
+    display: flex;
+    flex-direction: column;
     justify-content: center; 
     align-items: center; 
-    margin: 10px 0 0 0;
-
+    margin: 10px 10px 0 10px;
+    
 }
+
 .clase_cajita_sombreada_interna{
     background-color: rgb(230, 232, 235);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-    padding: 20px;
-    margin:20px;
+    padding: 10px;
+    margin:10px;
+    
 }
 .clase_cajita_sombreada_interna_coleccion{
     background-color: rgb(230, 232, 235);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-    padding: 20px 20px;
-    margin:2px 5px;
+    padding: 20px 20px 10px 0px;
+    margin:5px;
     display: flex; 
     align-items: center; 
     justify-content: space-between;
@@ -63,4 +65,49 @@ p  {
 .clase_botones_editar_lista{
     margin-top: 10px; 
     text-align: center;
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+}
+.padding_abajo{
+    padding: 0 0 20px 0;     
+}
+.padding_abajo{
+    padding: 20px 0 0px 0;     
+}
+.clase_boton_rojo_borrar {
+    background-color: rgb(170, 55, 55);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.clase_boton_verde_guardar {
+    background-color: rgb(16, 112, 1);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); 
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.clase_boton_azul_crear {
+    background-color: rgb(30, 32, 154);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.clase_boton_amarillo_editar {
+    background-color: rgb(205, 154, 1);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
