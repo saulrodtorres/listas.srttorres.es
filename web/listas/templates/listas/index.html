@@ -4,14 +4,28 @@
     <title>Listas Lokas</title>
 </head>
 <body>
+    <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px;">
+    <h1>Listas de Tareas</h1>
+    </div>
+
+<div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px;">
 {%  if coleccion_listas %}
-    <ul>
+    <ol>
         {% for l in coleccion_listas %}
         <li><a href="lista-tareas/{{l.pk}}">{{ l.nombre }}</a></li>
         {% endfor %}
-    </ul>
+    </ol>
 {% else %}
     <p>No hay listas</p>
 {% endif %}
+</div>
 </body>
-</html></div>
+</html>
