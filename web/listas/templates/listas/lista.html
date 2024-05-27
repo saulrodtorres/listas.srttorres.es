@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Listas Lokas</title>
-</head>
-<body>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'listas/estilos.css' %}">
     <script>
         function borrar_lista() {
             // Code to delete the list with {{lista.id}}
@@ -32,7 +32,12 @@
             // Code to add a new task
     }
     </script>
-    <a href="{% url 'listas:home'}">Listas de Tareas</a><p>> <b>{{lista.nombre}}</b></p>
+</head>
+<body>
+    <div class="clase_cabecera_azul">
+            <h1>Listas de Tareas</h1>
+            </div>
+    <p><a href="{% url 'listas:home' %}">Listas de Tareas</a> > <b>{{lista.nombre}}</b></p>
     <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
                 display: flex; 
                 justify-content: center; 
@@ -57,28 +62,35 @@
                 </div>
             </form>
         </div>
-    </div>
-    <div style="height: 20px;"> -- </div>
-
-    <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
-                display: flex; 
-                justify-content: center; 
-                align-items: center; 
-                margin-top: 20px;">
         {% if coleccion_tareas %}
-        <ul>
-            {% for t in coleccion_tareas %}
-            <li><a href="{{lista_actual_pk}}/tarea/{{t.pk}}">{{ t.descripcion }}</a></li>
-            {% endfor %}
-        </ul>
-            {% else %}
-        <p>No hay tareas para esta lista con pk: {{lista.id}}</p>
-            {% endif %}
+        <ol>
+        {% for t in coleccion_tareas %}
         <div style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-                    padding: 20px;">
-            <button type="button" onclick="agregarTarea()">Añadir tarea</button>
-        </div>
+                padding: 20px 20px;
+                margin:2px 5px;
+                display: flex; 
+                align-items: center; 
+                justify-content: space-between;">
+        <li><a href="{{lista_actual_pk}}/tarea/{{t.pk}}">{{ t.descripcion }}</a></li>
+        <button type="button" onclick="borrar_tarea()" style="margin-left: 20px;">Borrar tarea</button>
     </div>
+    {% endfor %}
+</ol>
+    {% else %}
+<p>No hay tareas para esta lista con pk: {{lista.id}}</p>
+    {% endif %}        
+
+<div style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+            padding: 20px;
+            align-items: center;
+            display: flex;
+            justify-content: center;">
+    <button type="button" onclick="agregarTarea()">Añadir tarea</button>
+</div>
+    </div>
+    <div style="height: 20px;"></div>
+
+
     
 </body>
 </html>

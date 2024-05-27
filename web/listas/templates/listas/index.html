@@ -2,6 +2,9 @@
 <html>
     <head>
         <title>Listas Lokas</title>
+        
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'listas/estilos.css' %}">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
@@ -13,11 +16,7 @@
         } );
     </script>
 
-    <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    margin-top: 20px;">
+    <div class="clase_cabecera_azul">
     <h1>Listas de Tareas</h1>
     </div>
 
