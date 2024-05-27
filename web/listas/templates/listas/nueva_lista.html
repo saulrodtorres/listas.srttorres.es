@@ -4,18 +4,41 @@
     <title>Listas Lokas</title>
 </head>
 <body>
+    <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                margin-top: 20px;">
+        <div style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+                    padding: 20px;
+                    margin:2px;">
+            <form action="{% url 'listas:lista' lista.id %}" method="post">
+                {% csrf_token %}
+                <fieldset>
+                    <legend><h1>Editar Lista</h1></legend>                       
+                    <label for="nombre_lista">Nombre</label>
+                    <input type="text" name="nombre_lista" id="nombre_nueva_lista" value="">
+                    <label for="autor_lista">Autor</label>
+                    <input type="text" name="autor_lista" id="nombre_autor_nueva_lista" value="">            
+                </fieldset>
+                <div style="margin-top: 10px; 
+                            text-align: center;">
+                    <input type="submit" value="Guardar datos de lista">        
+                </div>
+            </form>
+        </div>
+    </div>
+    <div style="height: 20px;"></div>
+    <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                margin-top: 20px;">
+        <div style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+                    padding: 20px;">
+            <button type="button" onclick="agregarTarea()">Añadir tarea</button>
+        </div>
+    </div>
     
-
-    <form action="{% url 'listas:lista' lista.id %}" method="post">
-        {% csrf_token %}
-        <fieldset>
-            <legend><h1>Editar Lista</h1></legend>                       
-            <input type="text" name="nombre_lista" id="nombre_nueva_lista" value="{{ lista.nombre }}">
-            <label for="nombre_lista">Nombre</label><br>
-            <input type="text" name="autor_lista" id="nombre_autor_nueva_lista" value="pepe">
-            <label for="autor_lista">Autor</label><br>
-        </fieldset>
-        <input type="submit" value="Guardar">
-    </form>
 </body>
 </html>

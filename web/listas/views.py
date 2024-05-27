@@ -30,46 +30,38 @@ def vista_tarea(request, lista_pk, tarea_pk):
     return render(request, "listas/tarea.html", context=context)
 
 def nueva_lista(request):
-    # Vista para guardar la nueva lista
+    # Vista para enviar un formulario para crear una nueva lista
     lista = Lista()
     lista.save()
-    lista_id = lista.pk
-    lista.nombre = "La lista del Caesar"
-    nueva_lista = get_object_or_404(Lista, pk=lista_id) #esta llamada no es válida, hasta que no haga un save...
-    print(nueva_lista)
-    try:
-        nueva_lista = Lista.objects.get(pk=lista_id)
-    except (KeyError, Lista.DoesNotExist):
-        return render(request, 'listas/nueva_lista.html', {
-            'lista': nueva_lista,
-            'error_message': "No se ha podido cargar la lista",
-        })
-    else:
-        #nueva_lista.nombre = request.POST['nombre_lista'] #recojo el name del input
-        #recojo el name del input
-        
-        nueva_lista.nombre = request.POST.get('nombre_lista', False) #Si no existe, devuelve False y sigue ejecutando
-        #nueva_lista.author_id = request.POST['autor_lista'] #esto no tiene mucho sentido, solo cuando no cambia el slug y el autor
-        nueva_lista.author_id = request.POST.get('autor_lista', False) #Si no existe, devuelve False y sigue ejecutando
-        nueva_lista.slug_nombre = slugify(nueva_lista.nombre)
-        nueva_lista.slug_author_id = slugify(nueva_lista.author_id)
-        nueva_lista.save()
-        return HttpResponseRedirect(reverse('listas:lista', args=(nueva_lista.pk,)))
-        #return HttpResponseRedirect(reverse('listas:nueva_lista'))#creo que esto entra en bucle
+    context = { 
+        "lista"       : lista,
+    }
+    return render(request, "listas/nueva_lista.html", context=context)
+
+    
 
 def vista_lista(request, lista_pk): 
-    # Vista para "<str:nombre_autor>/lista-tareas/<int:lista_pk>"
-    # Es un formulario para editar el nombre de una lista y añadir tareas a la lista    
+    # Vista para "lista-tareas/<int:lista_pk>" y para recibir la lista nada más crearla
+    # Tratamiento si ya está creada
     try:
         lista_actual = Lista.get_lista_por_pk(pk=lista_pk)
     except Lista.DoesNotExist:
         raise Http404(f"Lo siento, pero la lista con PK {lista_pk}")    
+    try:
+        #Aquí lo que querría es saber si existe un POST o si es un GET.
+        lista_actual.nombre = request.POST.get('nombre_lista', False) #Si no existe, devuelve False y sigue ejecutando        
+        lista_actual.author_id = request.POST.get('autor_lista', False) #Si no existe, devuelve False y sigue ejecutando
+        lista_actual.save()
+    except:
+        pass
+
+    #Es muy posible que no exista coleccion_tareas para una lista recién creada
     coleccion_tareas = Tarea.objects.filter(lista_id=lista_actual.pk)#esto está mal, debería ser por lista_id
     context = {        
         "nombre_lista_actual" : lista_actual.nombre,    #Se usa en el Título
         "coleccion_tareas": coleccion_tareas,           #TODO: esto es un <QuerySet [<Tarea: Descripción: Recoger la mesa de mi habitación (TODO). Author: saul>, <Tarea: Descripción: Recoger la ropa tendida (TODO). Author: saul>]>                
-        "lista_actual_pk"   : lista_actual.pk
-    }    
+        "lista"   : lista_actual
+    }
     return render(request, "listas/lista.html", context=context)
 
 
