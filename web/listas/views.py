@@ -53,8 +53,10 @@ def vista_lista(request, lista_pk):
         raise Http404(f"Lo siento, pero la lista con PK {lista_pk}")    
     try:
         #Aquí lo que querría es saber si existe un POST o si es un GET.
-        lista_actual.nombre = request.POST.get('nombre_lista', lista_actual.nombre) #Si no existe, devuelve False y sigue ejecutando        
-        lista_actual.author_id = request.POST.get('autor_lista', lista_actual.author_id) #Si no existe, devuelve False y sigue ejecutando
+        lista_actual.nombre = request.POST.get('nombre_lista', lista_actual.nombre) #Si no existe, devuelve la que había recogido en lista_actual
+        lista_actual.author_id = request.POST.get('autor_lista', lista_actual.author_id) 
+        lista_actual.slug_nombre = slugify(lista_actual.nombre)
+        lista_actual.slug_author_id = slugify(lista_actual.author_id)
         lista_actual.save()
     except:
         pass
