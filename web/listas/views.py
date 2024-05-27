@@ -40,9 +40,7 @@ def nueva_lista(request):
     context = { 
         "lista"       : lista,
     }
-    return render(request, "listas/nueva_lista.html", context=context)
-
-    
+    return render(request, "listas/nueva_lista.html", context=context)  
 
 def vista_lista(request, lista_pk): 
     # Vista para "lista-tareas/<int:lista_pk>" y para recibir la lista nada más crearla
@@ -68,6 +66,16 @@ def vista_lista(request, lista_pk):
         "coleccion_tareas": coleccion_tareas,           #TODO: esto es un <QuerySet [<Tarea: Descripción: Recoger la mesa de mi habitación (TODO). Author: saul>, <Tarea: Descripción: Recoger la ropa tendida (TODO). Author: saul>]>                
         "lista"   : lista_actual
     }
+    
     return render(request, "listas/lista.html", context=context)
+    #return HttpResponseRedirect(reverse('listas:lista', args=(nueva_lista.pk,)))#TODO:Aprender a usarlo
 
-
+def borrar_lista(request, lista_pk):
+    # Vista para borrar una lista
+    try:
+        lista_actual = Lista.objects.get(pk=lista_pk)
+    except Lista.DoesNotExist:
+        raise Http404(f"Lo siento, pero la lista con PK {lista_pk}")    
+    lista_actual.delete()
+    return HttpResponseRedirect(reverse('listas:home')) #Redirige a la página principal
+    
