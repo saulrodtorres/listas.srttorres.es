@@ -37,7 +37,9 @@
     <div class="clase_cabecera_azul">
         <h1>Listas de Tareas</h1>
     </div>
-    <p><a href="{% url 'listas:home' %}">Listas de Tareas</a> > <b>{{lista.nombre}}</b></p>
+    <div class="clase_cajita_sombreada">
+        <p><a href="{% url 'listas:home' %}">Listas de Tareas</a> > <b>{{lista.nombre}}</b></p>
+    </div>
     <div class="clase_cajita_sombreada">
         <div class="clase_cajita_sombreada_interna">
             <form action="{% url 'listas:lista' lista.id %}" method="post">
@@ -58,12 +60,7 @@
         {% if coleccion_tareas %}
         <ol>
         {% for t in coleccion_tareas %}
-        <div style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-                padding: 20px 20px;
-                margin:2px 5px;
-                display: flex; 
-                align-items: center; 
-                justify-content: space-between;">
+        <div class="clase_cajita_sombreada_interna_coleccion">
         <li><a href="{{lista_actual_pk}}/tarea/{{t.pk}}">{{ t.descripcion }}</a></li>
         <button type="button" onclick="borrar_tarea()" style="margin-left: 20px;">Borrar tarea</button>
     </div>
@@ -73,13 +70,9 @@
 <p>No hay tareas para esta lista con pk: {{lista.id}}</p>
     {% endif %}        
 
-<div style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-            padding: 20px;
-            align-items: center;
-            display: flex;
-            justify-content: center;">
-    <button type="button" onclick="agregarTarea()">Añadir tarea</button>
-</div>
+    <div class="clase_cajita_sombreada_interna_coleccion">
+        <button type="button" onclick="agregarTarea()">Añadir tarea</button>
+    </div>
     </div>
     <div style="height: 20px;"></div>
 
