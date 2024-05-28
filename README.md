@@ -19,3 +19,7 @@ tarea_1 = Tarea.crear_tarea(descripcion="Preparar folleto de excursión", author
 tarea_2 = Tarea.crear_tarea(descripcion="Editar fotos del concierto", author_id="saul", lista_id = lista_saul)
 
 http://127.0.0.1:8000/saul/lista-tareas/lista-saul
+
+
+# Funcionalidades a implementar
+Que la navegación sea en la misma ventana

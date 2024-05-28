@@ -10,10 +10,10 @@
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
         <script type="text/javascript">
             function editar_lista(url) {
-                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+                window.location.href = url;
             }
             function crear_lista(url) {
-                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+                window.location.href = url;
             }
         </script>
             <script type="text/javascript">
@@ -23,11 +23,9 @@
         </script>
         </head>
 <body>
-
-
-<div class="clase_cabecera_azul">
-    <h1>Listas de Tareas</h1>
-</div>
+    <div class="clase_cabecera_azul">
+        <h1>Listas de Tareas</h1>
+    </div>
 
 <div class="clase_cajita_sombreada_padre padding_abajo padding_arriba">
 {%  if coleccion_listas %}

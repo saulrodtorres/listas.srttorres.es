@@ -22,8 +22,8 @@
             } else {
             // Do nothing!
             console.log('Has cancelado el borrado de la lista con id: {{lista.id}}.');
-}
-            window.open("{% url 'listas:borrar_lista' lista.id %}");
+            }
+            window.location.href ="{% url 'listas:borrar_lista' lista.id %}";
             /*
             fetch("{% url 'listas:borrar_lista' lista.id %}", {
                 method: 'GET',//No me deja poner un DELETE que es lo que debería ser
@@ -43,13 +43,13 @@
             */
         }
         function editar_tarea(url) {
-                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+            window.location.href = url;
             }
         function borrar_tarea(url) {
-                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+            window.location.href = url;
             }
         function crear_tarea(url) {
-                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+            window.location.href = url;
             }
     </script>
 </head>
