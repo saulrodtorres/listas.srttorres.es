@@ -2,43 +2,111 @@
 <html>
 <head>
     <title>Listas Lokas</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'listas/estilos.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#lista_de_tareas').DataTable();
+        } );
+    </script>
+    <script>
+        function borrar_lista() {
+            // Code to delete the list with {{lista.id}}
+            //alert("Se va a borrar la lista con id: {{lista.id}}")
+            if (confirm('Seguro que desea borrar la lista con id: {{lista.id}}?')) {
+            // Save it!
+            console.log('La lista con id: {{lista.id}} ha sido borrada con éxito.');
+            } else {
+            // Do nothing!
+            console.log('Has cancelado el borrado de la lista con id: {{lista.id}}.');
+}
+            window.open("{% url 'listas:borrar_lista' lista.id %}");
+            /*
+            fetch("{% url 'listas:borrar_lista' lista.id %}", {
+                method: 'GET',//No me deja poner un DELETE que es lo que debería ser
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("La lista con id: " + data.id + " ha sido borrada");
+                // Code to handle the response data or perform any other actions
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Code to handle the error or display an error message
+            });
+            */
+        }
+        function editar_tarea(url) {
+                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+            }
+        function borrar_tarea(url) {
+                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+            }
+        function crear_tarea(url) {
+                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+            }
+    </script>
 </head>
 <body>
-    <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
-                display: flex; 
-                justify-content: center; 
-                align-items: center; 
-                margin-top: 20px;">
-        <div style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-                    padding: 20px;
-                    margin:2px;">
+    <div class="clase_cabecera_azul">
+        <h1>Listas de Tareas</h1>
+    </div>
+    <div class="clase_cajita_sombreada_padre" id="breadcrumb">
+        <p><a href="{% url 'listas:home' %}">Listas de Tareas</a> > <b>PK:{{lista.pk}}</b></p>
+    </div>
+    <div class="clase_cajita_sombreada_padre padding_abajo" id="editar_tareas">
+        <div class="clase_cajita_sombreada_interna">
             <form action="{% url 'listas:lista' lista.id %}" method="post">
                 {% csrf_token %}
                 <fieldset>
-                    <legend><h2>Editar Lista</h2></legend>                       
+                    <legend><h3>Editar Lista</h3></legend>                       
                     <label for="nombre_lista">Nombre</label>
-                    <input type="text" name="nombre_lista" id="nombre_nueva_lista" value="">
+                    <input type="text" name="nombre_lista" id="nombre_nueva_lista" value="{{lista.nombre}}">
                     <label for="autor_lista">Autor</label>
-                    <input type="text" name="autor_lista" id="nombre_autor_nueva_lista" value="">            
+                    <input type="text" name="autor_lista" id="nombre_autor_nueva_lista" value="{{lista.author_id}}">            
                 </fieldset>
-                <div style="margin-top: 10px; 
-                            text-align: center;">
-                    <input type="submit" value="Guardar datos de lista">        
+                <div class="clase_botones_editar_lista">
+                    <button type="button" onclick="javascript:borrar_lista()" class="clase_boton_rojo_borrar">Borrar lista</button>        
+                    <input type="submit" class="clase_boton_verde_guardar" value="Guardar datos de lista">                    
                 </div>
             </form>
         </div>
-    </div>
-    <div style="height: 20px;"></div>
-    <div style="box-shadow: 2px 2px 4px rgba(85, 84, 84, 0.4); 
-                display: flex; 
-                justify-content: center; 
-                align-items: center; 
-                margin-top: 20px;">
-        <div style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-                    padding: 20px;">
-            <button type="button" onclick="agregarTarea()">Añadir tarea</button>
+        <div class="clase_cajita_sombreada_interna" id="coleccion_tareas">
+            {%  if coleccion_tareas %}
+            <table id="lista_de_tareas">
+                <thead>
+                    <tr>            
+                        <th>ID</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th></th><!--editar-->
+                        <th></th><!--borrar-->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in coleccion_tareas %}
+                    <tr>            
+                        <td><a href="{% url 'listas:tarea' t.id %}">{{t.id}}</a></td>
+                        <td><a href="{% url 'listas:tarea' t.id %}">{{t.descripcion}}</a></td>
+                        <td><a href="{% url 'listas:tarea' t.id %}">{{t.estado}}</a></td>
+                        <td><button type="button" onclick="borrar_tarea('{% url 'listas:tarea' t.id %}')" class="clase_boton_rojo_borrar">Borrar</button></td>
+                        <td><button type="button" onclick="editar_tarea('{% url 'listas:tarea' t.id %}')" class="clase_boton_amarillo_editar">Editar</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <p>No hay Tareas en esta Lista con ID: {{lista.id}}</p>
+            {% endif %}
+            <div style="text-align: center; width: 26%;">
+                <button type="button" onclick="crear_tarea('{% url 'listas:nueva_tarea' lista.id %}')" class="clase_boton_azul_crear" style="text-align: center; display: block; margin: 0 auto;">Crear tarea</button>
+            </div>
         </div>
-    </div>
-    
 </body>
 </html>

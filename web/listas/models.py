@@ -28,14 +28,18 @@ class Tarea(models.Model):
         INICIADA = 'Iniciada'  
     estado = models.CharField(max_length=10, choices=estado_tarea.choices, default=estado_tarea.PENDIENTE) 
     @classmethod
-    def crear_tarea(cls,descripcion, author_id, lista_id):#probar
-        tarea = cls(descripcion=descripcion, author_id=author_id, lista_id = lista_id, slug_descripcion=slugify(descripcion), slug_author_id=slugify(author_id), slug_lista_id=slugify(lista_id))
+    def crear_tarea(cls, lista_pk):
+        lista = Lista.objects.get(pk=lista_pk)
+        tarea = cls(lista_id = lista)
         tarea.save()
-        return tarea  
+        return tarea
+    
     @classmethod
     def get_tarea_por_pk(cls, pk):
         tarea = Tarea.objects.get(pk=pk)
         return tarea
+    
+    
     @classmethod
     def print_estado(cls):
         name_estado = cls.estado.name

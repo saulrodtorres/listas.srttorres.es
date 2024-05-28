@@ -55,7 +55,7 @@
     <p>No hay listas</p>
 {% endif %}
     <div style="text-align: center; width: 25%;">
-        <button type="button" onclick="crear_lista('lista-tareas/')" class="clase_boton_azul_crear" style="text-align: center; display: block; margin: 0 auto;">Crear lista</button>
+        <button type="button" onclick="crear_lista('{% url 'listas:nueva_lista'%}')" class="clase_boton_azul_crear" style="text-align: center; display: block; margin: 0 auto;">Crear lista</button>
     </div>
 </div>
 </body>

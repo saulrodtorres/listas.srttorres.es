@@ -42,10 +42,15 @@
             });
             */
         }
-
-        function agregarTarea() {
-            // Code to add a new task
-    }
+        function editar_tarea(url) {
+                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+            }
+        function borrar_tarea(url) {
+                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+            }
+        function crear_tarea(url) {
+                window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+            }
     </script>
 </head>
 <body>
@@ -90,8 +95,8 @@
                         <td><a href="{% url 'listas:tarea' t.id %}">{{t.id}}</a></td>
                         <td><a href="{% url 'listas:tarea' t.id %}">{{t.descripcion}}</a></td>
                         <td><a href="{% url 'listas:tarea' t.id %}">{{t.estado}}</a></td>
-                        <td><button type="button" onclick="borrar_tarea('')" class="clase_boton_rojo_borrar">Borrar</button></td>
-                        <td><button type="button" onclick="editar_tarea()" class="clase_boton_amarillo_editar">Editar</button></td>
+                        <td><button type="button" onclick="borrar_tarea('{% url 'listas:tarea' t.id %}')" class="clase_boton_rojo_borrar">Borrar</button></td>
+                        <td><button type="button" onclick="editar_tarea('{% url 'listas:tarea' t.id %}')" class="clase_boton_amarillo_editar">Editar</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -99,6 +104,9 @@
             {% else %}
                 <p>No hay Tareas en esta Lista con ID: {{lista.id}}</p>
             {% endif %}
+            <div style="text-align: center; width: 26%;">
+                <button type="button" onclick="crear_tarea('{% url 'listas:nueva_tarea' lista.id %}')" class="clase_boton_azul_crear" style="text-align: center; display: block; margin: 0 auto;">Crear tarea</button>
+            </div>
         </div>
 </body>
 </html>

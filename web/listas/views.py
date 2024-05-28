@@ -19,19 +19,40 @@ def vista_home(request):
         "coleccion_listas"       : coleccion_listas,
     }
     return render(request, "listas/index.html", context=context)
+def nueva_tarea(request, lista_pk):
+    # Vista para enviar un formulario para crear una nueva tarea
+    tarea = Tarea.crear_tarea(lista_pk)
+    context = { 
+        "tarea"      : tarea,
+        "lista"      : tarea.lista_id,
+    }
+    return render(request, "listas/nueva_tarea.html", context=context)
 
-def vista_tarea(request, lista_pk, tarea_pk):
+def vista_tarea(request, tarea_pk):
     # Vista para "<str:slug_nombre_autor>/lista-tareas/<int:slug_nombre_lista>/tarea/<str:slug_nombre_tarea>"
     # Es un formulario para editar una tarea.
     try:
         tarea_actual = Tarea.get_tarea_por_pk(pk=tarea_pk)
     except Tarea.DoesNotExist:
         raise Http404(f"Lo siento, pero la lista con PK {tarea_pk} no existe. Revisa si el PK de la tarea es correcta")    
+    try:
+        lista_actual = Lista.objects.get(pk=tarea_actual.lista_id.pk)
+    except Lista.DoesNotExist:
+        raise Http404(f"Lo siento, pero la lista con PK {tarea_actual.lista_id.pk} no existe. Revisa si el PK de la lista es correcta")
     context = {                
         "tarea": tarea_actual,                          #Esto es un objeto Tarea. Solo hace falta decir tarea_pk porque eso la hace única.
+        "lista": lista_actual,                          #Esto es un objeto Lista. Solo hace falta decir lista_pk porque eso la hace única.
     }
     #podría comprobarse que la tarea_pk está en la lista_pk   
     return render(request, "listas/tarea.html", context=context)
+def borrar_tarea(request, tarea_pk):
+    # Vista para borrar una tarea
+    try:
+        tarea_actual = Tarea.objects.get(pk=tarea_pk)
+    except Tarea.DoesNotExist:
+        raise Http404(f"Lo siento, pero la tarea con PK {tarea_pk} no existe. Revisa si el PK de la tarea es correcta")    
+    tarea_actual.delete()
+    return HttpResponseRedirect(reverse('listas:home')) #Redirige a la página principal pero debería redirigir a la lista de la que se ha borrado la tarea
 
 def nueva_lista(request):
     # Vista para enviar un formulario para crear una nueva lista
