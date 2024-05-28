@@ -2,18 +2,43 @@
 <html>
 <head>
     <title>Listas Lokas</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'listas/estilos.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script>
+        function borrar_tarea(url) {
+            window.open(url);/*FUNCIONA PERO ABRE OTRA PESTAÑA*/
+        }
+    </script>
 </head>
 <body>
-    <p>Tarea <b>{{tarea.pk}}</b></p>
-
-    {% if tarea %}
-    <ul>
-        <li>Descripción: {{ tarea.descripcion }}</li>
-        <li>Fecha de Creación: {{ tarea.fecha_creacion }}</li>
-        <li>Fecha de Modificación: {{ tarea.fecha_modificacion }}</li>
-        <li>Estado: {{ tarea.estado }}</li>
-    {% else %}
-    <p>No hay tarea para este autor En la lista con pk: {{lista_actual_pk}}</p>
-    {% endif %}
+    <<div class="clase_cabecera_azul">
+        <h1>Listas de Tareas</h1>
+    </div>
+    <div class="clase_cajita_sombreada_padre" id="breadcrumb">
+        <p><a href="{% url 'listas:home' %}">Listas de Tareas</a> > <a href="{% url 'listas:lista' lista.id %}"> {{lista.nombre}}</a> > <b> {{tarea.descripcion}}</b></p>
+    </div>
+    <div class="clase_cajita_sombreada_padre padding_abajo" id="editar_tareas">
+        <div class="clase_cajita_sombreada_interna">
+            <form action="{% url 'listas:tarea' tarea.id %}" method="post">
+                {% csrf_token %}
+                <fieldset>
+                    <legend><h3>Editar Lista</h3></legend>                       
+                    <label for="descripcion_tarea">Descripcion</label>
+                    <input type="text" name="descripcion_tarea" id="descripcion_tarea" value="{{tarea.descripcion}}">
+                    <label for="autor_tarea">Autor</label>
+                    <input type="text" name="autor_tarea" id="nombre_autor_tarea" value="{{tarea.author_id}}">
+                    <label for="estado_tarea">Estado</label>
+                    <input type="text" name="estado_tarea" id="estado_tarea" value="{{tarea.estado}}"><!--esto se podría cargar como choices-->            
+                </fieldset>
+                <div class="clase_botones_editar_lista">
+                    <button type="button" onclick="borrar_tarea('{% url 'listas:borrar_tarea' tarea.id %}')" class="clase_boton_rojo_borrar">Borrar tarea</button>        
+                    <input type="submit" class="clase_boton_verde_guardar" value="Guardar datos de lista">                    
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

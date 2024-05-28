@@ -95,7 +95,7 @@
                         <td><a href="{% url 'listas:tarea' t.id %}">{{t.id}}</a></td>
                         <td><a href="{% url 'listas:tarea' t.id %}">{{t.descripcion}}</a></td>
                         <td><a href="{% url 'listas:tarea' t.id %}">{{t.estado}}</a></td>
-                        <td><button type="button" onclick="borrar_tarea('{% url 'listas:tarea' t.id %}')" class="clase_boton_rojo_borrar">Borrar</button></td>
+                        <td><button type="button" onclick="borrar_tarea('{% url 'listas:borrar_tarea' t.id %}')" class="clase_boton_rojo_borrar">Borrar</button></td>
                         <td><button type="button" onclick="editar_tarea('{% url 'listas:tarea' t.id %}')" class="clase_boton_amarillo_editar">Editar</button></td>
                     </tr>
                     {% endfor %}

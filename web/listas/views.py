@@ -39,6 +39,17 @@ def vista_tarea(request, tarea_pk):
         lista_actual = Lista.objects.get(pk=tarea_actual.lista_id.pk)
     except Lista.DoesNotExist:
         raise Http404(f"Lo siento, pero la lista con PK {tarea_actual.lista_id.pk} no existe. Revisa si el PK de la lista es correcta")
+    try:
+        #Aquí lo que querría es saber si existe un POST o si es un GET.
+        tarea_actual.descripcion = request.POST.get('descripcion_tarea', tarea_actual.descripcion) #Si no existe, devuelve la que había recogido en tarea_actual
+        tarea_actual.author_id = request.POST.get('autor_tarea', tarea_actual.author_id) 
+        tarea_actual.slug_descripcion = slugify(tarea_actual.descripcion)
+        tarea_actual.slug_author_id = slugify(tarea_actual.author_id)
+        tarea_actual.save()
+    except:
+        pass
+
+
     context = {                
         "tarea": tarea_actual,                          #Esto es un objeto Tarea. Solo hace falta decir tarea_pk porque eso la hace única.
         "lista": lista_actual,                          #Esto es un objeto Lista. Solo hace falta decir lista_pk porque eso la hace única.
@@ -52,7 +63,8 @@ def borrar_tarea(request, tarea_pk):
     except Tarea.DoesNotExist:
         raise Http404(f"Lo siento, pero la tarea con PK {tarea_pk} no existe. Revisa si el PK de la tarea es correcta")    
     tarea_actual.delete()
-    return HttpResponseRedirect(reverse('listas:home')) #Redirige a la página principal pero debería redirigir a la lista de la que se ha borrado la tarea
+    return HttpResponseRedirect(reverse('listas:lista', args=(tarea_actual.lista_id.pk,))) #Redirige a la página principal pero debería redirigir a la lista de la que se ha borrado la tarea
+    #return HttpResponseRedirect(reverse('listas:lista', tarea_actual.lista_id.pk )) #Redirige a la página principal pero debería redirigir a la lista de la que se ha borrado la tarea
 
 def nueva_lista(request):
     # Vista para enviar un formulario para crear una nueva lista
