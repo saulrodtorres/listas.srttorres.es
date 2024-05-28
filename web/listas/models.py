@@ -23,10 +23,10 @@ class Tarea(models.Model):
     slug_author_id = models.SlugField(max_length=50,blank=True)
     slug_lista_id = models.SlugField(max_length=50, blank=True)
     class estado_tarea(models.TextChoices):
-        PENDIENTE = 'TODO', 'Pendiente'
-        COMPLETADA = 'DONE', 'Completada'
-        INICIADA = 'INIT', 'Iniciada'  
-    estado = models.CharField(max_length=4, choices=estado_tarea.choices, default=estado_tarea.PENDIENTE) 
+        PENDIENTE = 'Pendiente'
+        COMPLETADA = 'Completada'
+        INICIADA = 'Iniciada'  
+    estado = models.CharField(max_length=10, choices=estado_tarea.choices, default=estado_tarea.PENDIENTE) 
     @classmethod
     def crear_tarea(cls,descripcion, author_id, lista_id):#probar
         tarea = cls(descripcion=descripcion, author_id=author_id, lista_id = lista_id, slug_descripcion=slugify(descripcion), slug_author_id=slugify(author_id), slug_lista_id=slugify(lista_id))
@@ -36,9 +36,15 @@ class Tarea(models.Model):
     def get_tarea_por_pk(cls, pk):
         tarea = Tarea.objects.get(pk=pk)
         return tarea
+    @classmethod
+    def print_estado(cls):
+        name_estado = cls.estado.name
+        return name_estado
 #    fase 2
 #    fecha_creacion = models.DateTimeField(auto_now_add=True)
 #    fecha_limite = models.DateTimeField(null=True, blank=True)
+#    fecha_completada = models.DateTimeField(null=True, blank=True)
+#    usuario_asignado = models.CharField(max_length=50, blank=True) #esto a lo mejor es un foreign key
 
     def __str__(self):
         tostring = self.descripcion + ' (' + self.estado + ')'

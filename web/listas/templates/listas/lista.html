@@ -9,7 +9,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready( function () {
-            $('#listas_de_tareas').DataTable();
+            $('#lista_de_tareas').DataTable();
         } );
     </script>
     <script>
@@ -72,7 +72,34 @@
                 </div>
             </form>
         </div>
-        <div class="clase_cajita_sombreada_interna" id="coleccion_tareas">            
+        <div class="clase_cajita_sombreada_interna" id="coleccion_tareas">
+            {%  if coleccion_tareas %}
+            <table id="lista_de_tareas">
+                <thead>
+                    <tr>            
+                        <th>ID</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th></th><!--editar-->
+                        <th></th><!--borrar-->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in coleccion_tareas %}
+                    <tr>            
+                        <td><a href="{% url 'listas:tarea' t.id %}">{{t.id}}</a></td>
+                        <td><a href="{% url 'listas:tarea' t.id %}">{{t.descripcion}}</a></td>
+                        <td><a href="{% url 'listas:tarea' t.id %}">{{t.estado}}</a></td>
+                        <td><button type="button" onclick="borrar_tarea('')" class="clase_boton_rojo_borrar">Borrar</button></td>
+                        <td><button type="button" onclick="editar_tarea()" class="clase_boton_amarillo_editar">Editar</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <p>No hay Tareas en esta Lista con ID: {{lista.id}}</p>
+            {% endif %}
+
             <fieldset>
             <legend><h3>Tareas</h3></legend>            
             {% if coleccion_tareas %}        

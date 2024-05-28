@@ -8,12 +8,17 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-        <script>
-            $(document).ready( function () {
-                $('#listas_de_tareas').DataTable();
-            } );
+        <script type="text/javascript">
+            function editar_lista(url) {
+                window.open(url);/*NO FUNCIONA*/
+            }
         </script>
-    </head>
+            <script type="text/javascript">
+                $(document).ready( function () {
+                    $('#listas_de_tareas').DataTable();
+                } );
+        </script>
+        </head>
 <body>
 
 
@@ -21,7 +26,7 @@
     <h1>Listas de Tareas</h1>
 </div>
 
-<div class="clase_cajita_sombreada_padre padding_abajo padding_arriba">
+<div class="clase_cajita_sombreada_padre padding_abajo padding_arriba padding_abajo">
 {%  if coleccion_listas %}
 <table id="listas_de_tareas">
     <thead>
@@ -29,6 +34,7 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Autor</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -37,6 +43,7 @@
             <td><a href="{% url 'listas:lista' l.id %}">{{l.id}}</a></td>
             <td><a href="{% url 'listas:lista' l.id %}">{{l.nombre}}</a></td>
             <td><a href="{% url 'listas:lista' l.id %}">{{l.author_id}}</a></td>
+            <td><button type="button" onclick="editar_lista('{% url 'listas:lista' l.id %}')" class="clase_boton_amarillo_editar">Editar</button></td><!--NO FUNCIONA porque no puede meterse {% url 'listas:lista' l.id %}-->
         </tr>
         {% endfor %}
     </tbody>
