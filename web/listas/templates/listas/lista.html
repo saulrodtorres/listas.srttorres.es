@@ -99,25 +99,6 @@
             {% else %}
                 <p>No hay Tareas en esta Lista con ID: {{lista.id}}</p>
             {% endif %}
-
-            <fieldset>
-            <legend><h3>Tareas</h3></legend>            
-            {% if coleccion_tareas %}        
-                <ol>
-                    <div class="clase_cajita_sombreada_interna_coleccion">
-                        <button type="button" onclick="agregarTarea()" class="clase_boton_azul_crear">Añadir tarea</button>
-                    </div>    
-                    {% for t in coleccion_tareas %}
-                    <div class="clase_cajita_sombreada_interna_coleccion">
-                        <li><a href="{{lista_actual_pk}}/tarea/{{t.pk}}">{{ t.descripcion }}</a></li>
-                        <button type="button" onclick="borrar_tarea()" class="clase_boton_rojo_borrar">Borrar tarea</button>
-                    </div>                
-                    {% endfor %}
-                </ol>
-            {% else %}
-                <p>No hay tareas para esta lista con pk: {{lista.id}}</p>
-            {% endif %}                
-            </fieldset>
         </div>
 </body>
 </html>

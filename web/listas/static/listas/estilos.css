@@ -70,10 +70,10 @@ p  {
     justify-content: space-between;
 }
 .padding_abajo{
-    padding: 0 0 20px 0;     
+    padding-bottom: 20px;     
 }
-.padding_abajo{
-    padding: 20px 0 0px 0;     
+.padding_arriba{
+    padding-top: 20px;     
 }
 .clase_boton_rojo_borrar {
     background-color: rgb(170, 55, 55);
