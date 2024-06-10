@@ -22,4 +22,10 @@ http://127.0.0.1:8000/saul/lista-tareas/lista-saul
 
 
 # Funcionalidades a implementar
-Que la navegación sea en la misma ventana
+Colaboración git con otra cuenta: srttorres (rama_issues)
+Que se pueda elegir entre el choice text (asignado a srttorres)
+Integración en servidor web
+Añadir la gestión de usuarios
+Que se guarde la tarea sin dar el botón guardar
+Que al guardarse aparezca alguna señal de guardado
+
