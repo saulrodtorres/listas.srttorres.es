@@ -7,51 +7,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-    <script>
-        $(document).ready( function () {
-            $('#lista_de_tareas').DataTable();
-        } );
-    </script>
-    <script>
-        function borrar_lista() {
-            // Code to delete the list with {{lista.id}}
-            //alert("Se va a borrar la lista con id: {{lista.id}}")
-            if (confirm('Seguro que desea borrar la lista con id: {{lista.id}}?')) {
-            // Save it!
-            console.log('La lista con id: {{lista.id}} ha sido borrada con éxito.');
-            } else {
-            // Do nothing!
-            console.log('Has cancelado el borrado de la lista con id: {{lista.id}}.');
-            }
-            window.location.href ="{% url 'listas:borrar_lista' lista.id %}";
-            /*
-            fetch("{% url 'listas:borrar_lista' lista.id %}", {
-                method: 'GET',//No me deja poner un DELETE que es lo que debería ser
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert("La lista con id: " + data.id + " ha sido borrada");
-                // Code to handle the response data or perform any other actions
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Code to handle the error or display an error message
-            });
-            */
-        }
-        function editar_tarea(url) {
-            window.location.href = url;
-            }
-        function borrar_tarea(url) {
-            window.location.href = url;
-            }
-        function crear_tarea(url) {
-            window.location.href = url;
-            }
-    </script>
+    <script type="text/javascript" charset="utf8" src="{% static 'listas/funciones.js' %}"></script>
 </head>
 <body>
     <div class="clase_cabecera_azul">
