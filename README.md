@@ -3,9 +3,14 @@ Listas de tareas, listas de la compra, green flags, red flags, etc
 
 
 
+# --------------------------------------
+#           RUN IN WINDOWS
+# --------------------------------------
+# 1) Instalar el virtualenvironment
+virtualenv nombre_carpeta_codigo
+nombre_carpeta_codigo debe ser superior a la carpeta /web/
 
-# RUN IN WINDOWS:
-# Activar el virtualenvironment, que ya debe de tener instalado Django
+# 2) Activar el virtualenvironment, que ya debe de tener instalado Django
 cd .\venv_web.srttorres.es\Scripts\; Set-ExecutionPolicy Unrestricted -Scope Process; ./activate
 cd ../web
 python manage.py runserver
