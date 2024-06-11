@@ -25,8 +25,8 @@
             <form action="{% url 'listas:tarea' tarea.id %}" method="post">
                 {% csrf_token %}
                 <fieldset>
-                    <legend><h3>Editar Lista</h3></legend>                       
-                    <label for="descripcion_tarea">Descripcion</label>
+                    <legend><h3>Editar Tarea</h3></legend>                       
+                    <label for="descripcion_tarea">Tarea</label>
                     <input type="text" name="descripcion_tarea" id="descripcion_tarea" value="{{tarea.descripcion}}">
                     <label for="autor_tarea">Autor</label>
                     <input type="text" name="autor_tarea" id="nombre_autor_tarea" value="{{tarea.author_id}}">
@@ -35,7 +35,7 @@
                 </fieldset>
                 <div class="clase_botones_editar_lista">
                     <button type="button" onclick="borrar_tarea('{% url 'listas:borrar_tarea' tarea.id %}')" class="clase_boton_rojo_borrar">Borrar tarea</button>        
-                    <input type="submit" class="clase_boton_verde_guardar" value="Guardar datos de lista">                    
+                    <input type="submit" class="clase_boton_verde_guardar" value="Guardar">                    
                 </div>
             </form>
         </div>
