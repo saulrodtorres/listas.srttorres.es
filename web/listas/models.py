@@ -26,7 +26,7 @@ class Tarea(models.Model):
         PENDIENTE = 'Pendiente'
         COMPLETADA = 'Completada'
         INICIADA = 'Iniciada'  
-    estado = models.CharField(max_length=10, choices=Estado_tarea, default=estado_tarea.PENDIENTE) 
+    estado = models.CharField(max_length=10, choices=Estado_tarea, default=Estado_tarea.PENDIENTE) 
     @classmethod
     def crear_tarea(cls, lista_pk):
         lista = Lista.objects.get(pk=lista_pk)
