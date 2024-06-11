@@ -22,11 +22,11 @@ class Tarea(models.Model):
     slug_descripcion = models.SlugField(max_length=50, blank=True)
     slug_author_id = models.SlugField(max_length=50,blank=True)
     slug_lista_id = models.SlugField(max_length=50, blank=True)
-    class estado_tarea(models.TextChoices):
+    class Estado_tarea(models.TextChoices):
         PENDIENTE = 'Pendiente'
         COMPLETADA = 'Completada'
         INICIADA = 'Iniciada'  
-    estado = models.CharField(max_length=10, choices=estado_tarea.choices, default=estado_tarea.PENDIENTE) 
+    estado = models.CharField(max_length=10, choices=Estado_tarea, default=estado_tarea.PENDIENTE) 
     @classmethod
     def crear_tarea(cls, lista_pk):
         lista = Lista.objects.get(pk=lista_pk)
