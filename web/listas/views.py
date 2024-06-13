@@ -41,8 +41,9 @@ def vista_tarea(request, tarea_pk):
         raise Http404(f"Lo siento, pero la lista con PK {tarea_actual.lista_id.pk} no existe. Revisa si el PK de la lista es correcta")
     try:
         #Aquí lo que querría es saber si existe un POST o si es un GET.
-        tarea_actual.descripcion = request.POST.get('descripcion_tarea', tarea_actual.descripcion) #Si no existe, devuelve la que había recogido en tarea_actual
+        tarea_actual.descripcion = request.POST.get('descripcion_tarea', tarea_actual.descripcion) #Si no existe en el POST, devuelve la que había recogido en tarea_actual
         tarea_actual.author_id = request.POST.get('autor_tarea', tarea_actual.author_id) 
+        tarea_actual.estado = request.POST.get('estado_tarea', tarea_actual.estado)
         tarea_actual.slug_descripcion = slugify(tarea_actual.descripcion)
         tarea_actual.slug_author_id = slugify(tarea_actual.author_id)
         tarea_actual.save()

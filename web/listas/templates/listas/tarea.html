@@ -26,8 +26,52 @@
                     <input type="text" name="descripcion_tarea" id="descripcion_tarea" value="{{tarea.descripcion}}">
                     <label for="autor_tarea">Autor</label>
                     <input type="text" name="autor_tarea" id="nombre_autor_tarea" value="{{tarea.author_id}}">
-                    <label for="estado_tarea">Estado</label>
-                    <input type="text" name="estado_tarea" id="estado_tarea" value="{{tarea.estado}}"><!--esto se podría cargar como choices-->                    
+                    
+                    <label for="estado_tarea">Estado</label> 
+
+                    {% if tarea.estado == 'Pendiente' %}
+                    <label for="estado_tarea_iniciada">
+                     <b>{{ tarea.estado }}</b>
+                    {% else %}
+                     Pendiente
+                    {% endif %}
+                    </label>
+                    <input type="radio" name="estado_tarea" id="estado_tarea_iniciada" value="Pendiente"
+                    {% if tarea.estado == 'Pendiente' %}
+                    checked
+                    {% endif %}
+                    >
+                    
+                     {% if tarea.estado == 'Iniciada' %}
+                    <label for="estado_tarea_iniciada">
+                     <b>{{ tarea.estado }}</b>
+                    {% else %}
+                     Iniciada
+                    {% endif %}
+                    </label>
+                    <input type="radio" name="estado_tarea" id="estado_tarea_iniciada" value="Iniciada"
+                    {% if tarea.estado == 'Iniciada' %}
+                    checked
+                    {% endif %}
+                    >
+
+                    {% if tarea.estado == 'Completada' %}
+                    <label for="estado_tarea_completada">
+                     <b>{{ tarea.estado }}</b>
+                    {% else %}
+                     Completada
+                    {% endif %}
+                    </label>
+                    <input type="radio" name="estado_tarea" id="estado_tarea_completada" value="Completada"
+                    {% if tarea.estado == 'Completada' %}
+                    checked
+                    {% endif %}
+                    >
+                
+                   
+                    
+                    
+                    
                 </fieldset>
                 <div class="clase_botones_editar_lista">
                     <button type="button" onclick="borrar_tarea('{% url 'listas:borrar_tarea' tarea.id %}')" class="clase_boton_rojo_borrar">Borrar tarea</button>        
